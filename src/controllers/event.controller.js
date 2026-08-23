@@ -1,4 +1,5 @@
 import Event from "../models/Event.js";
+import { eventNotificationQueue } from "../jobs/queue.js";
 
 // Create Event
 export const createEvent = async (req, res) => {
@@ -153,6 +154,10 @@ export const updateEvent = async (req, res) => {
     }
 
     await event.save();
+
+    await eventNotificationQueue.add("event-updated", {
+      eventId: event._id.toString(),
+    });
 
     res.status(200).json({
       success: true,
