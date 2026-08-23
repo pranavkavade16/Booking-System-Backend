@@ -129,7 +129,6 @@ export const updateEvent = async (req, res) => {
       "location",
       "date",
       "ticketPrice",
-      "totalTickets",
     ];
 
     allowedFields.forEach((field) => {
